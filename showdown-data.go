@@ -12,8 +12,25 @@ import "fmt"
 // IO Utility Library
 import "io/ioutil"
 
+// Executable library
+import "os/exec"
+
+// File Path Library
+import "path/filepath"
+
 // String Library
 import "strings"
+
+// Return the path of the exe
+func getAppPath() string {
+
+	file, _ := exec.LookPath(os.Args[0]);
+	path, _ := filepath.Abs(file);
+	index := strings.LastIndex(path, string(os.PathSeparator));
+
+	return path[:index];
+
+}
 
 // Return content from
 // json object
@@ -36,6 +53,9 @@ func getJson(file *os.File)(map[string]interface{}){
 // Main Function
 func main(){
 
+	// Get Current Working Directory
+	pwd := getAppPath();
+
 	// Retrieve CLI Arguments
 	args := os.Args[1:];
 
@@ -47,7 +67,7 @@ func main(){
 		if args[0] == "ability" { // Ability Data
 			
 			// Open the ability json file
-			file, err := os.Open("data/ability.json");
+			file, err := os.Open(pwd + "\\data\\ability.json");
 
 			// If the error is not null
 			if err != nil {
@@ -88,7 +108,7 @@ func main(){
 		} else if args[0] == "move" { // Move Data
 
 			// Open the move json file
-			file, err := os.Open("data/move.json");
+			file, err := os.Open(pwd + "\\data\\move.json");
 
 			// If the error is not null
 			if err != nil {
@@ -156,7 +176,7 @@ func main(){
 		} else if args[0] == "dex" { // Pokedex Data
 
 			// Open the pokedex json file
-			file, err := os.Open("data/dex.json");
+			file, err := os.Open(pwd + "\\data\\dex.json");
 
 			// If the error is not null
 			if err != nil {
@@ -228,7 +248,7 @@ func main(){
 
 		} else if args[0] == "type" { // Type Data
 			// Open the type json file
-			file, err := os.Open("data/type.json");
+			file, err := os.Open(pwd + "\\data\\type.json");
 
 			// If the error is not null
 			if err != nil {
