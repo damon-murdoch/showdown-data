@@ -1,0 +1,1 @@
+go build -o D:/repo/showdown-data/bin/sddata.exe D:/repo/showdown-data/showdown-data.go
